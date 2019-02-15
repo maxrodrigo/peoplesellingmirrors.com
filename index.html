@@ -28,33 +28,67 @@
         *,
         *:before,
         *:after {
-          box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                    box-sizing: border-box;
         }
         .wrapper {
             margin: 0 auto;
             max-width: 940px;
         }
+        a{
+            text-decoration:none;
+        }
         h1{
             font-size:1.6em;
             font-weight:normal;
+        }
+        header{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items:baseline;
+        }
+        nav{
+            justify-self: end;
         }
         main{
             display: grid;
             grid-auto-rows: minmax(150px, auto);
             grid-gap: 10px;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
         }
         main > img{ 
             width: 100%; 
             border: 2px solid fuchsia;
+        }
+
+        a.columns-selector{ 
+            letter-spacing: -0.2em;
+            width: 1.2em;
+            text-align:center;
+            display:inline-block;
+        }
+
+        @media only screen and (max-width: 768px) {
+            header { 
+                grid-template-columns: 1fr;
+                padding-bottom: 1em;
+            }
+            nav { justify-self: auto; }
         }
     </style>
 </head>
 <body>
 <div class="wrapper">
     <header>
-        <a href="https://github.com/maxrodrigo/peoplesellingmirrors.com/issues/new">[submit/report]</a>
         <h1>People Selling Mirrors</h1>
+        <nav>
+            <a href="#" data-columns="3" class="columns-selector">❚❚❚</a>
+            <a href="#" data-columns="2" class="columns-selector">❚❚</a>
+            <a href="#" data-columns="1" class="columns-selector">❚</a>
+            ●
+            <a href="https://github.com/maxrodrigo/peoplesellingmirrors.com/issues/new">[submit/report]</a>
+        </nav>
     </header>
     <main></main>
 </div>
@@ -75,6 +109,14 @@
           var img = new Image();
           img.src = i;
           document.getElementsByTagName("main")[0].appendChild(img);
+        });
+    });
+
+    [...document.querySelectorAll('.columns-selector')].forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            var columns = item.getAttribute("data-columns");
+            document.getElementsByTagName("main")[0].style.gridTemplateColumns = "repeat("+columns+", 1fr)";
         });
     });
 
