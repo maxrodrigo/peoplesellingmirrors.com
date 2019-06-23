@@ -34,9 +34,10 @@
         }
         .wrapper {
             margin: 0 auto;
-            max-width: 940px;
+            max-width: 967px;
         }
         a{
+            color: fuchsia;
             text-decoration:none;
         }
         h1{
@@ -51,15 +52,22 @@
         nav{
             justify-self: end;
         }
+        nav a{
+            padding-left: 1em;
+        }
+        nav a:hover{
+            color: black;
+            text-decoration: underline;
+        }
         main{
             display: grid;
             grid-auto-rows: minmax(150px, auto);
             grid-gap: 10px;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
         }
         main > img{ 
             width: 100%; 
-            border: 2px solid fuchsia;
+            border: 5px solid fuchsia;
         }
 
         a.columns-selector{ 
@@ -68,11 +76,6 @@
             text-align:center;
             display:inline-block;
         }
-        a.submit-report{ margin-left:1em; }
-
-        @media only screen and (max-width: 768px) {
-            a.columns-selector{ display:none; }
-        }
     </style>
 </head>
 <body>
@@ -80,13 +83,12 @@
     <header>
         <h1>People Selling Mirrors</h1>
         <nav>
-            <a href="#" data-columns="1" class="columns-selector" alt="one-column">❚</a>
-            <a href="#" data-columns="2" class="columns-selector" alt="two columns">❚❚</a>
-            <a href="#" data-columns="auto" class="columns-selector" alt="automatic">❚❚❚</a>
-            <a href="https://github.com/maxrodrigo/peoplesellingmirrors.com/issues/new" class="submit-report">[submit | report]</a>
+            <a href="https://github.com/maxrodrigo/peoplesellingmirrors.com/issues/new" class="submit-report">submit | report</a>
+            <a href="#commento">comments</a>
         </nav>
     </header>
     <main></main>
+    <div id="commento"></div>
 </div>
 <script charset="utf-8">
     function loadJSON(file, callback) {
@@ -108,19 +110,6 @@
         });
     });
 
-    [...document.querySelectorAll('.columns-selector')].forEach(function(item) {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            var columns = item.getAttribute("data-columns");
-            if(!isNaN(columns)){
-                var columns_prop = "repeat("+columns+", 1fr)";
-            }else{
-                var columns_prop = "repeat(auto-fill, minmax(250px, 1fr))";
-            }
-            document.getElementsByTagName("main")[0].style.gridTemplateColumns = columns_prop;
-        });
-    });
-
     (function(f, a, t, h, o, m){
         a[h]=a[h]||function(){
             (a[h].q=a[h].q||[]).push(arguments)
@@ -133,5 +122,6 @@
     fathom('set', 'siteId', 'KCSSH');
     fathom('trackPageview');
 </script>
+<script src="https://comments.moviestowatchwhen.com/js/commento.js"></script>
 </body>
 </html>
